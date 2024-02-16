@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getSP();
+    getExpensesIncomesUserSP();
   }
 
   @override
@@ -147,12 +147,14 @@ class _HomePageState extends State<HomePage> {
                                   AddTransactionsPage(
                                     callBackIncome: (income) {
                                       incomeList.add(income);
-                                      addToSP(expenseList, incomeList, user);
+                                      addExpensesIncomesUserSP(
+                                          expenseList, incomeList, user);
                                       setState(() {});
                                     },
                                     callBackExpense: (expense) {
                                       expenseList.add(expense);
-                                      addToSP(expenseList, incomeList, user);
+                                      addExpensesIncomesUserSP(
+                                          expenseList, incomeList, user);
                                       setState(() {});
                                     },
                                   )),
@@ -468,7 +470,7 @@ class _HomePageState extends State<HomePage> {
     return cost.toStringAsFixed(0);
   }
 
-  Future<void> addToSP(List<ExpenseItem>? expensesList,
+  Future<void> addExpensesIncomesUserSP(List<ExpenseItem>? expensesList,
       List<IncomeItem>? incomeList, UserItem? user) async {
     final prefs = await SharedPreferences.getInstance();
     // await prefs.clear();
@@ -484,7 +486,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void getSP() async {
+  void getExpensesIncomesUserSP() async {
     final prefs = await SharedPreferences.getInstance();
     final List<dynamic> jsonData2 =
         jsonDecode(prefs.getString('expensesLists') ?? '[]');
